@@ -28,6 +28,14 @@ describe('backend-express-template routes', () => {
       .send({ first_name: mockUser.first_name, last_name: mockUser.last_name ,email: mockUser.email, password: mockUser.password });
     expect(res.status).toEqual(200);
   });
+  it('sign out should delete session', async () => {
+    const user = await request(app).post('/api/v1/users').send(mockUser);
+    expect(user.status).toBe(200);
+    expect(user.body.message).toBe('Account created successfully');
+
+    const resp = await request(app).delete('/api/v1/users/sessions');
+    expect(resp.status).toBe(204);
+  });
   afterAll(() => {
     pool.end();
   });
