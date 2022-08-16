@@ -17,6 +17,7 @@ describe('backend-express-template routes', () => {
   it('should return a restaurant with nested reviews', async () => {
     const resp = await request(app).get('/api/v1/restaurants/1');
     expect(resp.body.name).toBe('restaurant A');
+    expect(resp.body.reviews.length).toBe(2);
     expect(resp.status).toBe(200);
   });
   afterAll(() => {
