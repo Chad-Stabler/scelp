@@ -7,7 +7,7 @@ const agent = request.agent(app);
 // const UserService = require('../lib/services/UserService');
 
 const mockUser = {
-  email: 'thisdude@thatguy.com',
+  email: 'admin@scelp.net',
   password: 'ayyoo',
   first_name: 'Jimmy',
   last_name: 'Kristo'
@@ -30,6 +30,15 @@ describe('backend-express-template routes', () => {
     expect(resp.status).toBe(200);
     expect(resp.body).toHaveProperty('stars', 4);
     expect(resp.body).toHaveProperty('detail', 'wooo');
+  });
+  it('should delete a review', async () => {
+    await agent.post('/api/v1/users').send(mockUser);
+
+    await agent.post('/api/v1/restaurants/1/reviews').send(mockReview);
+
+    const resp = await agent.delete('/api/v1/reviews/6');
+
+    expect(resp.status).toBe(200);
   });
   afterAll(() => {
     pool.end();
