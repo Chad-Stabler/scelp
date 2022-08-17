@@ -22,7 +22,9 @@ create table restaurants (
 create table reviews (
     id bigint generated always as identity primary key,
     scelp_users_id int,
+    restaurants_id int,
     foreign key (scelp_users_id) references scelp_users(id),
+    foreign key (restaurants_id) references restaurants(id),
     stars int not null,
     detail varchar
 );
